@@ -5,19 +5,16 @@
   
   <title>js-overload | Abner的代码奇遇记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#Javascript 的重载
-##Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过pr">
+  <meta name="description" content="Javascript 的重载Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过protot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js-overload">
 <meta property="og:url" content="http://abnergc.github.io/2015/11/29/js-overload/index.html">
 <meta property="og:site_name" content="Abner的代码奇遇记">
-<meta property="og:description" content="#Javascript 的重载
-##Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过pr">
-<meta property="og:updated_time" content="2015-11-29T09:50:28.690Z">
+<meta property="og:description" content="Javascript 的重载Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过protot">
+<meta property="og:updated_time" content="2015-11-29T10:39:03.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js-overload">
-<meta name="twitter:description" content="#Javascript 的重载
-##Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过pr">
+<meta name="twitter:description" content="Javascript 的重载Overview我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过protot">
   
     <link rel="alternative" href="/atom.xml" title="Abner的代码奇遇记" type="application/atom+xml">
   
@@ -206,12 +203,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Javascript 的重载</p>
-<p>##Overview<br>我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过prototype添加，这样我们便可以使用这些特性。但是这里要说明一点的：有人说既然这门语言没有实现它们为什么还要多此一举的去实现它们呢？很好的问题，但是我想说自己加这些“轮子”只是为了让自己的程序更加的精简和高可用 一切都是为了Write Less Do More!<br>Ok 说了这么多，今天我想分享的是面向对象中重载(overload)在javascript中的应用和实现。Let’s do it!</p>
-<p>##Javascript重载的实现<br>需要实现重载我们需要了解闭包(closure),还有我们会用到Function的length熟悉和arguments,this。当然我们还用到了每个Function都实现的apply方法。有了这些知识之后我们便可以来实现重载了。下面就是javascript重载的实现:</p>
+        <h1 id="Javascript_的重载">Javascript 的重载</h1><h2 id="Overview">Overview</h2><p>我们知道在其他面向对象的语言比如JAVA还有Python等，他们都有重载这一概念。但是在Javascript中并没有这个面向对象的特性，其实javascript确实被定义为一门面向对象语言，但是面向对象的很多特性javascript都没有实现。但是javascript提供了灵活性很高的接口——prototype。很多特性我们可以另外实现在通过prototype添加，这样我们便可以使用这些特性。但是这里要说明一点的：有人说既然这门语言没有实现它们为什么还要多此一举的去实现它们呢？很好的问题，但是我想说自己加这些“轮子”只是为了让自己的程序更加的精简和高可用 一切都是为了Write Less Do More!<br>Ok 说了这么多，今天我想分享的是面向对象中重载(overload)在javascript中的应用和实现。Let’s do it!</p>
+<h2 id="Javascript重载的实现">Javascript重载的实现</h2><p>需要实现重载我们需要了解闭包(closure),还有我们会用到Function的length熟悉和arguments,this。当然我们还用到了每个Function都实现的apply方法。有了这些知识之后我们便可以来实现重载了。下面就是javascript重载的实现:</p>
 <p><pre><code><br>function overLoad(obj,funcName,fn){<br>     //这里我们用一个变量来保存之前定义的函数<br>     var old = obj[funcName];<br>     //程序的核心实现<br>      obj[funcName] = function(){<br>         //这里去判断fn函数定义的形参的个数是不是等于传入这个函数的实参的个数<br>          if(fn.length == arguments.length){<br>             //如果是话那么我们直接去调用fn<br>              return fn.apply(this,arguments);<br>           }else{<br>             //否则我们检查如果old是一个函数的话<br>              if(typeof old == ‘function’){<br>                 //是的话直接调用<br>                  return old.apply(this,arguments);<br>              }else{<br>                 //抛出一个错误<br>                  thorw ‘function undefined’;<br>              }<br>          }<br>   }<br>}<br></code></pre><br>这些主要的程序写完了下面看我们这么用我们现在写好的方法。</p>
 <p><pre><code><br>     //定义一个对象我们把重载的方法绑定在这个对象上<br>     obj = {};<br>     //初始化我们的需要重载的方法<br>     overLoad(obj,’saying’,function(){<br>          console.log(‘Abner is a good boy’);<br>     });<br>     overLoad(obj,’saying’,function(name,gender){<br>          console.log(name + ‘ is a good ‘+ gender);<br>     });<br>     //下面是调用我们写好的方法<br>     obj.saying(); //Abner is a good boy<br>     obj.saying(‘xx’,’girl’) //xx is a good girl<br></code></pre></p>
-<p>##总结<br>这里实现重载我们用了一个很关键的技术就是闭包，闭包是一个十分神奇的技术，当我们第一次定义重载方法的时候变量<code>old</code>是等于<code>old</code>的但是第二次的时候<code>old</code>是一个函数了，如果我们直接不传参数使用<code>saying</code>方法那么程序就会去<code>old</code>存储的方法，最后找到无参数的方法并调用它。是不是很神奇。好了重载我们就说到这。如果有什么问题可以在下面评论我看到会及时回复。谢谢。</p>
+<h2 id="总结">总结</h2><p>这里实现重载我们用了一个很关键的技术就是闭包，闭包是一个十分神奇的技术，当我们第一次定义重载方法的时候变量<code>old</code>是等于<code>old</code>的但是第二次的时候<code>old</code>是一个函数了，如果我们直接不传参数使用<code>saying</code>方法那么程序就会去<code>old</code>存储的方法，最后找到无参数的方法并调用它。是不是很神奇。好了重载我们就说到这。如果有什么问题可以在下面评论我看到会及时回复。谢谢。</p>
 
       
     </div>
